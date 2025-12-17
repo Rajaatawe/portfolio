@@ -1,281 +1,871 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rajaa Tawel</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#05060a;
-      --card:#0d1117;
-      --accent:#ff4fa3; /* pink accent */
-      --accent-light:#ff7bbf;
-      --muted:#9aa3ae;
-      --glass: rgba(255,255,255,0.03);
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(1200px 600px at 10% 10%, rgba(255,79,163,0.04), transparent),linear-gradient(180deg,#030405,#07080a);color:#eaf7f6;font-family:'Poppins',sans-serif;overflow-x:hidden}
-    /* ---------- header ---------- */
-    header{position:fixed;inset:0 0 auto 0;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);backdrop-filter:blur(6px);z-index:40}
-    .logo{display:flex;align-items:center;gap:12px}
-    .logo .dot{width:12px;height:12px;background:var(--accent);border-radius:4px;box-shadow:0 0 18px rgba(255,79,163,0.3)}
-    nav{display:flex;gap:18px}
-    nav a{color:var(--muted);text-decoration:none;font-weight:600}
-    nav a:hover{color:var(--accent);transform:translateY(-2px)}
-    /* ---------- hero ---------- */
-    .hero{min-height:100vh;display:flex;align-items:center;padding:120px 8vw 80px;position:relative}
-    .hero-grid{display:grid;grid-template-columns:1fr 420px;gap:40px;align-items:center;width:100%;max-width:1200px;margin:0 auto}
-    .intro{max-width:760px}
-    .intro small{display:inline-block;color:var(--accent);font-weight:700;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,rgba(255,79,163,0.06),transparent);margin-bottom:18px}
-    .intro h1{font-size:48px;line-height:1.03;margin:6px 0 14px;text-shadow:0 8px 40px rgba(255,79,163,0.06)}
-    .intro p{color:var(--muted);font-size:18px;margin-bottom:20px}
-    .cta{display:flex;gap:12px;align-items:center}
-    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px 16px;border-radius:10px;color:var(--muted);cursor:pointer;font-weight:700}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),rgba(255,79,163,0.6));color:#001;box-shadow:0 6px 30px rgba(255,79,163,0.12);border:none}
-    /* profile card */
-    .profile{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:26px;border-radius:18px;border:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;gap:16px}
-    .avatar{width:160px;height:160px;border-radius:50%;overflow:hidden;border:4px solid rgba(255,79,163,0.12);box-shadow:0 10px 40px rgba(255,79,163,0.06)}
-    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-    .name{font-size:20px;font-weight:800}
-    .role{color:var(--muted);font-weight:600}
-    .contact-mini{display:flex;flex-direction:column;gap:8px;width:100%;margin-top:6px}
-    .contact-mini a{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;background:var(--glass);color:var(--muted);text-decoration:none;border:1px solid rgba(255,255,255,0.02)}
-    .contact-mini a:hover{border-color:rgba(255,79,163,0.12);color:var(--accent)}
-    /* ---------- sections ---------- */
-    section{padding:90px 8vw 90px}
-    h2.section-title{font-size:34px;margin:0 0 26px;text-align:center;color:var(--accent);text-shadow:0 0 12px rgba(255,79,163,0.08)}
-    /* skills */
-    .skills-grid{display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:start;max-width:1200px;margin:0 auto}
-    .skills-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
-    .skill{background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);display:flex;gap:12px;align-items:center}
-    .skill .icon{width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,0.02);display:grid;place-items:center}
-    .skill h4{margin:0;font-size:16px}
-    .bar{height:8px;background:rgba(255,255,255,0.04);border-radius:999px;overflow:hidden}
-    .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),rgba(255,79,163,0.6));width:0%;transition:width 1.2s cubic-bezier(.2,.9,.1,1)}
-    /* projects */
-    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;max-width:1200px;margin:0 auto}
-    .project-card{background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border-radius:14px;padding:0;overflow:hidden;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 40px rgba(0,0,0,0.6);position:relative}
-    .project-media{height:200px;overflow:hidden; background-color: #1a1a1a;}
-    .project-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
-    .project-card:hover .project-media img{transform:scale(1.06)}
-    .project-body{padding:18px}
-    .project-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-    .tag{font-size:12px;padding:6px 10px;background:rgba(255,79,163,0.02);border-radius:999px;color:var(--muted)}
-    .project-title{font-size:18px;color:var(--accent);margin-bottom:6px}
-    .project-desc{color:var(--muted);margin-bottom:12px}
-    .project-actions{display:flex;gap:10px}
-    .link-btn{padding:9px 12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02);color:var(--muted);text-decoration:none;font-weight:700}
-    .link-btn:hover{color:#001;background:linear-gradient(90deg,var(--accent),rgba(255,79,163,0.6));box-shadow:0 10px 40px rgba(255,79,163,0.08)}
-    /* contact */
-    .contact-grid{display:grid;grid-template-columns:1fr 420px;gap:30px;max-width:1200px;margin:0 auto}
-    .contact-card{padding:20px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid rgba(255,255,255,0.03)}
-    .socials{display:flex;flex-direction: column; gap:12px}
-    .socials a{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.02);text-decoration:none;color:var(--muted)}
-    .socials a:hover{color:var(--accent)}
-    /* particles canvas */
-    #particles{position:fixed;inset:0;z-index:0;pointer-events:none}
-    /* reveal animations */
-    .reveal{opacity:0;transform:translateY(18px) scale(.995);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.9,.1,1)}
-    .reveal.in{opacity:1;transform:none}
-    /* responsive */
-    @media (max-width:900px){.hero-grid{grid-template-columns:1fr}.skills-grid{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}.logo{gap:8px;padding-right:6px}}
-  </style>
-</head>
-<body>
-
-<canvas id="particles"></canvas>
-<header>
-  <div class="logo"><span class="dot"></span><div style="font-weight:800">Rajaa Tawel</div></div>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
-<main>
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="hero-grid">
-      <div class="intro">
-        <small>Hello — Flutter Developer and UI/UX Designer</small>
-        <h1 class="reveal">I'm <span style="color:var(--accent)">Rajaa Tawel</span><br>Creating mobile applications</h1>
-        <p class="reveal">Building mobile apps with attractive interfaces, experienced with Flutter and Firebase.</p>
-        <div class="cta reveal">
-          <button class="btn primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View Projects</button>
-          <a class="btn" href="#contact">Contact Me</a>
-        </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rajaa Tawel</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #05060a;
+        --card: #0d1117;
+        --accent: #ff4fa3; /* pink accent */
+        --accent-light: #ff7bbf;
+        --muted: #9aa3ae;
+        --glass: rgba(255, 255, 255, 0.03);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: radial-gradient(
+            1200px 600px at 10% 10%,
+            rgba(255, 79, 163, 0.04),
+            transparent
+          ),
+          linear-gradient(180deg, #030405, #07080a);
+        color: #eaf7f6;
+        font-family: "Poppins", sans-serif;
+        overflow-x: hidden;
+      }
+      /* ---------- header ---------- */
+      header {
+        position: fixed;
+        inset: 0 0 auto 0;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 36px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          transparent
+        );
+        backdrop-filter: blur(6px);
+        z-index: 40;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .logo .dot {
+        width: 12px;
+        height: 12px;
+        background: var(--accent);
+        border-radius: 4px;
+        box-shadow: 0 0 18px rgba(255, 79, 163, 0.3);
+      }
+      nav {
+        display: flex;
+        gap: 18px;
+      }
+      nav a {
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      nav a:hover {
+        color: var(--accent);
+        transform: translateY(-2px);
+      }
+      /* ---------- hero ---------- */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 120px 8vw 80px;
+        position: relative;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 40px;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .intro {
+        max-width: 760px;
+      }
+      .intro small {
+        display: inline-block;
+        color: var(--accent);
+        font-weight: 700;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 79, 163, 0.06),
+          transparent
+        );
+        margin-bottom: 18px;
+      }
+      .intro h1 {
+        font-size: 48px;
+        line-height: 1.03;
+        margin: 6px 0 14px;
+        text-shadow: 0 8px 40px rgba(255, 79, 163, 0.06);
+      }
+      .intro p {
+        color: var(--muted);
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+      .cta {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .btn {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 12px 16px;
+        border-radius: 10px;
+        color: var(--muted);
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .btn.primary {
+        background: linear-gradient(
+          90deg,
+          var(--accent),
+          rgba(255, 79, 163, 0.6)
+        );
+        color: #001;
+        box-shadow: 0 6px 30px rgba(255, 79, 163, 0.12);
+        border: none;
+      }
+      /* profile card */
+      .profile {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          transparent
+        );
+        padding: 26px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(6px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .avatar {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 4px solid rgba(255, 79, 163, 0.12);
+        box-shadow: 0 10px 40px rgba(255, 79, 163, 0.06);
+      }
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .name {
+        font-size: 20px;
+        font-weight: 800;
+      }
+      .role {
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .contact-mini {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        margin-top: 6px;
+      }
+      .contact-mini a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-radius: 10px;
+        background: var(--glass);
+        color: var(--muted);
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      .contact-mini a:hover {
+        border-color: rgba(255, 79, 163, 0.12);
+        color: var(--accent);
+      }
+      /* ---------- sections ---------- */
+      section {
+        padding: 90px 8vw 90px;
+      }
+      h2.section-title {
+        font-size: 34px;
+        margin: 0 0 26px;
+        text-align: center;
+        color: var(--accent);
+        text-shadow: 0 0 12px rgba(255, 79, 163, 0.08);
+      }
+      /* skills */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 30px;
+        align-items: start;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .skills-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 18px;
+      }
+      .skill {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          transparent
+        );
+        padding: 18px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .skill .icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.02);
+        display: grid;
+        place-items: center;
+      }
+      .skill h4 {
+        margin: 0;
+        font-size: 16px;
+      }
+      .bar {
+        height: 8px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .bar > i {
+        display: block;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          var(--accent),
+          rgba(255, 79, 163, 0.6)
+        );
+        width: 0%;
+        transition: width 1.2s cubic-bezier(0.2, 0.9, 0.1, 1);
+      }
+      /* projects */
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 26px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .project-card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          transparent
+        );
+        border-radius: 14px;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        position: relative;
+      }
+      .project-media {
+        height: 200px;
+        overflow: hidden;
+        background-color: #1a1a1a;
+      }
+      .project-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.8s;
+      }
+      .project-card:hover .project-media img {
+        transform: scale(1.06);
+      }
+      .project-body {
+        padding: 18px;
+      }
+      .project-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+      .tag {
+        font-size: 12px;
+        padding: 6px 10px;
+        background: rgba(255, 79, 163, 0.02);
+        border-radius: 999px;
+        color: var(--muted);
+      }
+      .project-title {
+        font-size: 18px;
+        color: var(--accent);
+        margin-bottom: 6px;
+      }
+      .project-desc {
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
+      .project-actions {
+        display: flex;
+        gap: 10px;
+      }
+      .link-btn {
+        padding: 9px 12px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.02);
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .link-btn:hover {
+        color: #001;
+        background: linear-gradient(
+          90deg,
+          var(--accent),
+          rgba(255, 79, 163, 0.6)
+        );
+        box-shadow: 0 10px 40px rgba(255, 79, 163, 0.08);
+      }
+      /* contact */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .contact-card {
+        padding: 20px;
+        border-radius: 12px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          transparent
+        );
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .socials {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .socials a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.02);
+        text-decoration: none;
+        color: var(--muted);
+      }
+      .socials a:hover {
+        color: var(--accent);
+      }
+      /* particles canvas */
+      #particles {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+      /* reveal animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px) scale(0.995);
+        transition: opacity 0.8s ease,
+          transform 0.8s cubic-bezier(0.2, 0.9, 0.1, 1);
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+      /* responsive */
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .logo {
+          gap: 8px;
+          padding-right: 6px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="particles"></canvas>
+    <header>
+      <div class="logo">
+        <span class="dot"></span>
+        <div style="font-weight: 800">Rajaa Tawel</div>
       </div>
-      <aside class="profile reveal">
-        <div class="avatar"><img src="images\profile.jpg" alt="Rajaa Tawel"></div>
-        <div class="name">Rajaa Tawel</div>
-        <div class="role">Flutter and UI/UX Designer</div>
-        <div class="contact-mini">
-          <a href="mailto:jojotawel4@gmail.com">Email <strong style="color:var(--accent)">jojotawel4@gmail.com</strong></a>
-          <a href="tel:0985792809">Phone <strong style="color:var(--accent)">0985792809</strong></a>
-          <a href="https://www.linkedin.com/in/rajaa-tawel-493077258" target="_blank">LinkedIn <strong style="color:var(--accent)">linkedin.com/in/rajaa-tawel</strong></a>
-        </div>
-      </aside>
-    </div>
-  </section>
-  <!-- Projects Section -->
-  <section id="projects">
-    <h2 class="section-title reveal">Projects</h2>
-    <div class="projects">
-      <article class="project-card reveal">
-        <div class="project-media"><img src="https://opengraph.githubassets.com/1/MiladnserSB/KHOTWA-Project" alt="KHOTWA-Project"></div>
-        <div class="project-body">
-          <div class="project-tags"><span class="tag">Flutter</span><span class="tag">Firebase</span></div>
-          <div class="project-title">KHOTWA Project</div>
-          <div class="project-desc">Khotwa project, a volunteer association (4th year).</div>
-          <div class="project-actions">
-            <a class="link-btn" href="https://github.com/MiladnserSB/KHOTWA-Project" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </article>
-      <article class="project-card reveal">
-        <div class="project-media"><img src="https://opengraph.githubassets.com/1/Rajaatawe/Internet_Project" alt="Internet_Project"></div>
-        <div class="project-body">
-          <div class="project-tags"><span class="tag">Java</span><span class="tag">Web</span></div>
-          <div class="project-title">Internet Applications Project</div>
-          <div class="project-desc">Internet Applications project (5th year).</div>
-          <div class="project-actions">
-            <a class="link-btn" href="https://github.com/Rajaatawe/Internet_Project" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </article>
-      <article class="project-card reveal">
-        <div class="project-media"><img src="https://opengraph.githubassets.com/1/MiladnserSB/CompilerProject4th" alt="CompilerProject4th"></div>
-        <div class="project-body">
-          <div class="project-tags"><span class="tag">C#</span><span class="tag">Compiler</span></div>
-          <div class="project-title">Compiler Project</div>
-          <div class="project-desc">Compiler project (4th year).</div>
-          <div class="project-actions">
-            <a class="link-btn" href="https://github.com/MiladnserSB/CompilerProject4th" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </article>
-      <article class="project-card reveal">
-        <div class="project-media"><img src="https://opengraph.githubassets.com/1/MiladnserSB/MediCare" alt="MediCare"></div>
-        <div class="project-body">
-          <div class="project-tags"><span class="tag">Java</span></div>
-          <div class="project-title">MediCare</div>
-          <div class="project-desc">Programming Languages project (3rd year).</div>
-          <div class="project-actions">
-            <a class="link-btn" href="https://github.com/MiladnserSB/MediCare" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </article>
-       <article class="project-card reveal">
-        <div class="project-media"><img src="https://opengraph.githubassets.com/1/Rajaatawe/pingoway1" alt="pingoway1"></div>
-        <div class="project-body">
-          <div class="project-tags"><span class="tag">C++</span></div>
-          <div class="project-title">Pingoway</div>
-          <div class="project-desc">Project 1 (3rd year).</div>
-          <div class="project-actions">
-            <a class="link-btn" href="https://github.com/Rajaatawe/pingoway1" target="_blank">GitHub</a>
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
-  <!-- Skills Section -->
-  <section id="skills">
-    <h2 class="section-title reveal">Skills</h2>
-    <div class="skills-grid">
-      <div>
-        <div class="skills-list">
-          <div class="skill reveal">
-            <div class="icon">📱</div>
-            <div style="flex:1">
-              <h4>Flutter & Dart</h4>
-              <div class="bar" aria-hidden><i style="width:95%"></i></div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+    <main>
+      <!-- Hero Section -->
+      <section class="hero" id="home">
+        <div class="hero-grid">
+          <div class="intro">
+            <small>Hello — Flutter Developer and UI/UX Designer</small>
+            <h1 class="reveal">
+              I'm <span style="color: var(--accent)">Rajaa Tawel</span
+              ><br />Creating mobile applications
+            </h1>
+            <p class="reveal">
+              Building mobile apps with attractive interfaces, experienced with
+              Flutter and Firebase.
+            </p>
+            <div class="cta reveal">
+              <button
+                class="btn primary"
+                onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})"
+              >
+                View Projects
+              </button>
+              <a class="btn" href="#contact">Contact Me</a>
             </div>
           </div>
-          <div class="skill reveal">
-            <div class="icon">🎨</div>
-            <div style="flex:1">
-              <h4>UI/UX Design</h4>
-              <div class="bar" aria-hidden><i style="width:90%"></i></div>
+          <aside class="profile reveal">
+            <div class="avatar">
+              <img src="images\profile.jpg" alt="Rajaa Tawel" />
+            </div>
+            <div class="name">Rajaa Tawel</div>
+            <div class="role">Flutter and UI/UX Designer</div>
+            <div class="contact-mini">
+              <a href="mailto:jojotawel4@gmail.com"
+                >Email
+                <strong style="color: var(--accent)"
+                  >jojotawel4@gmail.com</strong
+                ></a
+              >
+              <a href="tel:0985792809"
+                >Phone
+                <strong style="color: var(--accent)">0985792809</strong></a
+              >
+              <a
+                href="https://www.linkedin.com/in/rajaa-tawel-493077258"
+                target="_blank"
+                >LinkedIn
+                <strong style="color: var(--accent)"
+                  >linkedin.com/in/rajaa-tawel</strong
+                ></a
+              >
+            </div>
+          </aside>
+        </div>
+      </section>
+      <!-- Projects Section -->
+      <section id="projects">
+        <h2 class="section-title reveal">Projects</h2>
+        <div class="projects">
+          <article class="project-card reveal">
+            <div class="project-media">
+              <img
+                src="https://opengraph.githubassets.com/1/MiladnserSB/KHOTWA-Project"
+                alt="KHOTWA-Project"
+              />
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">Flutter</span
+                ><span class="tag">Firebase</span>
+              </div>
+              <div class="project-title">KHOTWA Project</div>
+              <div class="project-desc">
+                Khotwa project, a volunteer association (4th year).
+              </div>
+              <div class="project-actions">
+                <a
+                  class="link-btn"
+                  href="https://github.com/MiladnserSB/KHOTWA-Project"
+                  target="_blank"
+                  >GitHub</a
+                >
+              </div>
+            </div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-media">
+              <img
+                src="https://opengraph.githubassets.com/1/Rajaatawe/Internet_Project"
+                alt="Internet_Project"
+              />
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">Java</span><span class="tag">Web</span>
+              </div>
+              <div class="project-title">Internet Applications Project</div>
+              <div class="project-desc">
+                Internet Applications project (5th year).
+              </div>
+              <div class="project-actions">
+                <a
+                  class="link-btn"
+                  href="https://github.com/Rajaatawe/Internet_Project"
+                  target="_blank"
+                  >GitHub</a
+                >
+              </div>
+            </div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-media">
+              <img
+                src="https://opengraph.githubassets.com/1/MiladnserSB/CompilerProject4th"
+                alt="CompilerProject4th"
+              />
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">C#</span><span class="tag">Compiler</span>
+              </div>
+              <div class="project-title">Compiler Project</div>
+              <div class="project-desc">Compiler project (4th year).</div>
+              <div class="project-actions">
+                <a
+                  class="link-btn"
+                  href="https://github.com/MiladnserSB/CompilerProject4th"
+                  target="_blank"
+                  >GitHub</a
+                >
+              </div>
+            </div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-media">
+              <img
+                src="https://opengraph.githubassets.com/1/MiladnserSB/MediCare"
+                alt="MediCare"
+              />
+            </div>
+            <div class="project-body">
+              <div class="project-tags"><span class="tag">Java</span></div>
+              <div class="project-title">MediCare</div>
+              <div class="project-desc">
+                Programming Languages project (3rd year).
+              </div>
+              <div class="project-actions">
+                <a
+                  class="link-btn"
+                  href="https://github.com/MiladnserSB/MediCare"
+                  target="_blank"
+                  >GitHub</a
+                >
+              </div>
+            </div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-media">
+              <img
+                src="https://opengraph.githubassets.com/1/Rajaatawe/pingoway1"
+                alt="pingoway1"
+              />
+            </div>
+            <div class="project-body">
+              <div class="project-tags"><span class="tag">C++</span></div>
+              <div class="project-title">Pingoway</div>
+              <div class="project-desc">Project 1 (3rd year).</div>
+              <div class="project-actions">
+                <a
+                  class="link-btn"
+                  href="https://github.com/Rajaatawe/pingoway1"
+                  target="_blank"
+                  >GitHub</a
+                >
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+      <!-- Skills Section -->
+      <section id="skills">
+        <h2 class="section-title reveal">Skills</h2>
+        <div class="skills-grid">
+          <div>
+            <div class="skills-list">
+              <div class="skill reveal">
+                <div class="icon">📱</div>
+                <div style="flex: 1">
+                  <h4>Flutter & Dart</h4>
+                  <div class="bar" aria-hidden><i style="width: 95%"></i></div>
+                </div>
+              </div>
+              <div class="skill reveal">
+                <div class="icon">🎨</div>
+                <div style="flex: 1">
+                  <h4>UI/UX Design</h4>
+                  <div class="bar" aria-hidden><i style="width: 90%"></i></div>
+                </div>
+              </div>
+              <div class="skill reveal">
+                <div class="icon">☁️</div>
+                <div style="flex: 1">
+                  <h4>Firebase & APIs</h4>
+                  <div class="bar" aria-hidden><i style="width: 85%"></i></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="skill reveal">
-            <div class="icon">☁️</div>
-            <div style="flex:1">
-              <h4>Firebase & APIs</h4>
-              <div class="bar" aria-hidden><i style="width:85%"></i></div>
+          <aside>
+            <div class="profile contact-card reveal" style="padding: 22px">
+              <div
+                style="font-weight: 800; font-size: 18px; margin-bottom: 8px"
+              >
+                My Tech Stack
+              </div>
+              <p style="color: var(--muted); margin-bottom: 14px">
+                I work with these tools in production and design projects.
+              </p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                <span class="tag">Flutter</span>
+                <span class="tag">Dart</span>
+                <span class="tag">UI/UX Design</span>
+                <span class="tag">Firebase</span>
+                <span class="tag">REST APIs</span>
+                <span class="tag">Git</span>
+                <span class="tag">Figma</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <!-- Contact Section -->
+      <section id="contact">
+        <h2 class="section-title reveal">Contact Me</h2>
+        <div class="contact-grid">
+          <div class="contact-card reveal">
+            <p style="color: var(--muted); font-size: 17px">
+              Want to collaborate? Send a message and I will get back to you
+              ASAP.
+            </p>
+            <div style="height: 16px"></div>
+            <div class="socials">
+              <a href="mailto:jojotawel4@gmail.com"
+                >📧 Email
+                <strong style="color: var(--accent); margin-left: 8px"
+                  >jojotawel4@gmail.com</strong
+                ></a
+              >
+              <a href="tel:0985792809"
+                >📞 Phone
+                <strong style="color: var(--accent); margin-left: 8px"
+                  >0985792809</strong
+                ></a
+              >
+              <a
+                href="https://www.linkedin.com/in/rajaa-tawel-493077258"
+                target="_blank"
+                >🔗 LinkedIn
+                <strong style="color: var(--accent); margin-left: 8px"
+                  >linkedin.com/in/rajaa-tawel</strong
+                ></a
+              >
             </div>
           </div>
+          <form
+            class="contact-card reveal"
+            onsubmit="event.preventDefault();alert('Message sent (simulation) - add server settings later)')"
+          >
+            <label
+              style="display: block; margin-bottom: 8px; color: var(--muted)"
+              >Name</label
+            >
+            <input
+              required
+              style="
+                width: 100%;
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.03);
+                background: transparent;
+                color: inherit;
+                margin-bottom: 10px;
+              "
+            />
+            <label
+              style="display: block; margin-bottom: 8px; color: var(--muted)"
+              >Email</label
+            >
+            <input
+              type="email"
+              required
+              style="
+                width: 100%;
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.03);
+                background: transparent;
+                color: inherit;
+                margin-bottom: 10px;
+              "
+            />
+            <label
+              style="display: block; margin-bottom: 8px; color: var(--muted)"
+              >Message</label
+            >
+            <textarea
+              required
+              style="
+                width: 100%;
+                padding: 12px;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.03);
+                background: transparent;
+                color: inherit;
+                margin-bottom: 12px;
+                min-height: 120px;
+              "
+            ></textarea>
+            <button class="btn primary" type="submit">Send</button>
+          </form>
         </div>
-      </div>
-      <aside>
-        <div class="profile contact-card reveal" style="padding:22px">
-          <div style="font-weight:800;font-size:18px;margin-bottom:8px">My Tech Stack</div>
-          <p style="color:var(--muted);margin-bottom:14px">I work with these tools in production and design projects.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:8px">
-            <span class="tag">Flutter</span>
-            <span class="tag">Dart</span>
-            <span class="tag">UI/UX Design</span>
-            <span class="tag">Firebase</span>
-            <span class="tag">REST APIs</span>
-            <span class="tag">Git</span>
-            <span class="tag">Figma</span>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2 class="section-title reveal">Contact Me</h2>
-    <div class="contact-grid">
-      <div class="contact-card reveal">
-        <p style="color:var(--muted);font-size:17px">Want to collaborate? Send a message and I will get back to you ASAP.</p>
-        <div style="height:16px"></div>
-        <div class="socials">
-          <a href="mailto:jojotawel4@gmail.com">📧 Email <strong style="color:var(--accent);margin-left:8px">jojotawel4@gmail.com</strong></a>
-          <a href="tel:0985792809">📞 Phone <strong style="color:var(--accent);margin-left:8px">0985792809</strong></a>
-          <a href="https://www.linkedin.com/in/rajaa-tawel-493077258" target="_blank">🔗 LinkedIn <strong style="color:var(--accent);margin-left:8px">linkedin.com/in/rajaa-tawel</strong></a>
-        </div>
-      </div>
-      <form class="contact-card reveal" onsubmit="event.preventDefault();alert('Message sent (simulation) - add server settings later)')">
-        <label style="display:block;margin-bottom:8px;color:var(--muted)">Name</label>
-        <input required style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit;margin-bottom:10px">
-        <label style="display:block;margin-bottom:8px;color:var(--muted)">Email</label>
-        <input type="email" required style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit;margin-bottom:10px">
-        <label style="display:block;margin-bottom:8px;color:var(--muted)">Message</label>
-        <textarea required style="width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit;margin-bottom:12px; min-height: 120px;"></textarea>
-        <button class="btn primary" type="submit">Send</button>
-      </form>
-    </div>
-  </section>
-</main>
-<footer style="padding:30px 8vw;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02)">
-  © 2025 Rajaa Tawel • All Rights Reserved
-</footer>
-<script>
-  // particles background
-  const canvas = document.getElementById('particles');
-  const ctx = canvas.getContext('2d');
-  let w=canvas.width=innerWidth, h=canvas.height=innerHeight;
-  window.onresize=()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight};
-  const particles=[];const count=Math.floor((w*h)/45000);
-  for(let i=0;i<count;i++){particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.6+0.3,vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2,alpha:Math.random()*0.6+0.1})}
-  function draw(){ctx.clearRect(0,0,w,h);for(const p of particles){p.x+=p.vx;p.y+=p.vy;p.x<0&&(p.x=w);p.x>w&&(p.x=0);p.y<0&&(p.y=h);p.y>h&&(p.y=0);ctx.beginPath();ctx.fillStyle='rgba(255,79,163,'+p.alpha+')';ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()}requestAnimationFrame(draw)}
-  draw();
-  // reveal on scroll
-  const observer = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in')} })},{threshold:0.08});
-  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-  // animate skill bars
-  const bars = document.querySelectorAll('.bar > i');
-  const barObserver = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target; const w = el.getAttribute('style') || ''; el.style.width = el.style.width || el.getAttribute('data-w') || el.style.width;} })},{threshold:0.2});
-  document.querySelectorAll('.bar > i').forEach(i=>{barObserver.observe(i)});
-  document.querySelectorAll('.bar > i').forEach(i=>{const st=i.getAttribute('style');if(st&&st.includes('width')){const match=st.match(/width:\s*(\d+)%/);if(match){i.setAttribute('data-w',match[1]+'%');i.style.width='0%'}}});
-  // smooth nav scroll
-  document.querySelectorAll('nav a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t) t.scrollIntoView({behavior:'smooth'});})});
-  // initial hero reveal
-  window.addEventListener('load',()=>{document.querySelectorAll('.hero .reveal').forEach((el,i)=>setTimeout(()=>el.classList.add('in'),i*160))});
-</script>
-</body>
+      </section>
+    </main>
+    <footer
+      style="
+        padding: 30px 8vw;
+        text-align: center;
+        color: var(--muted);
+        border-top: 1px solid rgba(255, 255, 255, 0.02);
+      "
+    >
+      © 2025 Rajaa Tawel • All Rights Reserved
+    </footer>
+    <script>
+      // particles background
+      const canvas = document.getElementById("particles");
+      const ctx = canvas.getContext("2d");
+      let w = (canvas.width = innerWidth),
+        h = (canvas.height = innerHeight);
+      window.onresize = () => {
+        w = canvas.width = innerWidth;
+        h = canvas.height = innerHeight;
+      };
+      const particles = [];
+      const count = Math.floor((w * h) / 45000);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 1.6 + 0.3,
+          vx: (Math.random() - 0.5) * 0.2,
+          vy: (Math.random() - 0.5) * 0.2,
+          alpha: Math.random() * 0.6 + 0.1,
+        });
+      }
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.x < 0 && (p.x = w);
+          p.x > w && (p.x = 0);
+          p.y < 0 && (p.y = h);
+          p.y > h && (p.y = 0);
+          ctx.beginPath();
+          ctx.fillStyle = "rgba(255,79,163," + p.alpha + ")";
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+      // reveal on scroll
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+            }
+          });
+        },
+        { threshold: 0.08 }
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+      // animate skill bars
+      const bars = document.querySelectorAll(".bar > i");
+      const barObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              const el = e.target;
+              const w = el.getAttribute("style") || "";
+              el.style.width =
+                el.style.width || el.getAttribute("data-w") || el.style.width;
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+      document.querySelectorAll(".bar > i").forEach((i) => {
+        barObserver.observe(i);
+      });
+      document.querySelectorAll(".bar > i").forEach((i) => {
+        const st = i.getAttribute("style");
+        if (st && st.includes("width")) {
+          const match = st.match(/width:\s*(\d+)%/);
+          if (match) {
+            i.setAttribute("data-w", match[1] + "%");
+            i.style.width = "0%";
+          }
+        }
+      });
+      // smooth nav scroll
+      document.querySelectorAll("nav a").forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const t = document.querySelector(a.getAttribute("href"));
+          if (t) t.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+      // initial hero reveal
+      window.addEventListener("load", () => {
+        document
+          .querySelectorAll(".hero .reveal")
+          .forEach((el, i) =>
+            setTimeout(() => el.classList.add("in"), i * 160)
+          );
+      });
+    </script>
+  </body>
 </html>
