@@ -116,6 +116,7 @@
       .intro p {
         color: var(--muted);
         font-size: 18px;
+        line-height: 1.6;
         margin-bottom: 20px;
       }
       .cta {
@@ -158,13 +159,22 @@
         align-items: center;
         gap: 16px;
       }
+      /* --- MODIFIED AVATAR STYLE FOR BUBBLE EFFECT --- */
       .avatar {
         width: 160px;
         height: 160px;
         border-radius: 50%;
         overflow: hidden;
-        border: 4px solid rgba(255, 79, 163, 0.12);
-        box-shadow: 0 10px 40px rgba(255, 79, 163, 0.06);
+        /* New box-shadow for a bubble effect */
+        box-shadow: 
+          /* Outer glow */
+          0 8px 40px rgba(255, 79, 163, 0.15),
+          /* Outer 'border' */
+          0 0 0 3px rgba(255, 255, 255, 0.04),
+          /* Inner highlight */
+          inset 0 6px 15px rgba(255, 255, 255, 0.1),
+          /* Inner shadow for depth */
+          inset 0 -6px 15px rgba(0, 0, 0, 0.2);
       }
       .avatar img {
         width: 100%;
@@ -449,8 +459,7 @@
               ><br />Creating mobile applications
             </h1>
             <p class="reveal">
-              Building mobile apps with attractive interfaces, experienced with
-              Flutter and Firebase.
+              I'm a passionate and dedicated Flutter developer and UI/UX designer with a love for creating beautiful, intuitive, and high-performance mobile applications. My journey in technology has been driven by a desire to solve real-world problems and bring ideas to life through code and design. I thrive on the challenge of blending aesthetic design with clean, efficient functionality, ensuring a seamless user experience from the first tap.
             </p>
             <div class="cta reveal">
               <button
@@ -481,7 +490,7 @@
               >
               <a
                 href="https://www.linkedin.com/in/rajaa-tawel-493077258"
-                target="_blank"
+                target="\_blank"
                 >LinkedIn
                 <strong style="color: var(--accent)"
                   >linkedin.com/in/rajaa-tawel</strong
@@ -491,6 +500,7 @@
           </aside>
         </div>
       </section>
+
       <!-- Projects Section -->
       <section id="projects">
         <h2 class="section-title reveal">Projects</h2>
@@ -515,7 +525,7 @@
                 <a
                   class="link-btn"
                   href="https://github.com/MiladnserSB/KHOTWA-Project"
-                  target="_blank"
+                  target="\_blank"
                   >GitHub</a
                 >
               </div>
@@ -540,7 +550,7 @@
                 <a
                   class="link-btn"
                   href="https://github.com/Rajaatawe/Internet_Project"
-                  target="_blank"
+                  target="\_blank"
                   >GitHub</a
                 >
               </div>
@@ -563,7 +573,7 @@
                 <a
                   class="link-btn"
                   href="https://github.com/MiladnserSB/CompilerProject4th"
-                  target="_blank"
+                  target="\_blank"
                   >GitHub</a
                 >
               </div>
@@ -586,7 +596,7 @@
                 <a
                   class="link-btn"
                   href="https://github.com/MiladnserSB/MediCare"
-                  target="_blank"
+                  target="\_blank"
                   >GitHub</a
                 >
               </div>
@@ -607,7 +617,7 @@
                 <a
                   class="link-btn"
                   href="https://github.com/Rajaatawe/pingoway1"
-                  target="_blank"
+                  target="\_blank"
                   >GitHub</a
                 >
               </div>
@@ -615,6 +625,7 @@
           </article>
         </div>
       </section>
+
       <!-- Skills Section -->
       <section id="skills">
         <h2 class="section-title reveal">Skills</h2>
@@ -642,6 +653,27 @@
                   <div class="bar" aria-hidden><i style="width: 85%"></i></div>
                 </div>
               </div>
+              <div class="skill reveal">
+                <div class="icon">🎨</div>
+                <div style="flex: 1">
+                  <h4>Figma</h4>
+                  <div class="bar" aria-hidden><i style="width: 88%"></i></div>
+                </div>
+              </div>
+              <div class="skill reveal">
+                <div class="icon">🌿</div>
+                <div style="flex: 1">
+                  <h4>Git & GitHub</h4>
+                  <div class="bar" aria-hidden><i style="width: 90%"></i></div>
+                </div>
+              </div>
+              <div class="skill reveal">
+                <div class="icon">💻</div>
+                <div style="flex: 1">
+                  <h4>Java & C++</h4>
+                  <div class="bar" aria-hidden><i style="width: 75%"></i></div>
+                </div>
+              </div>
             </div>
           </div>
           <aside>
@@ -661,12 +693,18 @@
                 <span class="tag">Firebase</span>
                 <span class="tag">REST APIs</span>
                 <span class="tag">Git</span>
+                <span class="tag">GitHub</span>
                 <span class="tag">Figma</span>
+                <span class="tag">Java</span>
+                <span class="tag">C++</span>
+                <span class="tag">C#</span>
+                <span class="tag">Problem Solving</span>
               </div>
             </div>
           </aside>
         </div>
       </section>
+
       <!-- Contact Section -->
       <section id="contact">
         <h2 class="section-title reveal">Contact Me</h2>
@@ -692,7 +730,7 @@
               >
               <a
                 href="https://www.linkedin.com/in/rajaa-tawel-493077258"
-                target="_blank"
+                target="\_blank"
                 >🔗 LinkedIn
                 <strong style="color: var(--accent); margin-left: 8px"
                   >linkedin.com/in/rajaa-tawel</strong
